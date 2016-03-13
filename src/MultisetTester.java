@@ -54,57 +54,52 @@ public class MultisetTester
 
 			String command = tokens[0];
 			// determine which operation to execute
-			switch (command.toUpperCase()) {
-				// add
-				case "A":
-					if (tokens.length == 2) {
-						multiset.add(tokens[1]);
-					}
-					else {
-						System.err.println(lineNum + ": not enough tokens.");
-					}
-					break;
-				// search
-				case "S":
-					if (tokens.length == 2) {
-						int foundNumber = multiset.search(tokens[1]);
-						searchOutWriter.println(tokens[1] + " " + foundNumber);
-					}
-					else {
-						// we print -1 to indicate error for automated testing
-						searchOutWriter.println(-1);
-						System.err.println(lineNum + ": not enough tokens.");
-					}
-					break;
-				// remove one instance
-				case "RO":
-					if (tokens.length == 2) {
-						multiset.removeOne(tokens[1]);
-					}
-					else {
-						System.err.println(lineNum + ": not enough tokens.");
-					}
-					break;
-				// remove all instances
-				case "RA":
-					if (tokens.length == 2) {
-						multiset.removeAll(tokens[1]);
-					}
-					else {
-						System.err.println(lineNum + ": not enough tokens.");
-					}
-					break;		
-				// print
-				case "P":
-					multiset.print(outStream);
-					break;
-				// quit
-				case "Q":
-					bQuit = true;
-					break;
-				default:
-					System.err.println(lineNum + ": Unknown command.");
-			}
+            String s = command.toUpperCase();
+            if (s.equals("A")) {
+                if (tokens.length == 2) {
+                    multiset.add(tokens[1]);
+                } else {
+                    System.err.println(lineNum + ": not enough tokens.");
+                }
+
+                // search
+            } else if (s.equals("S")) {
+                if (tokens.length == 2) {
+                    int foundNumber = multiset.search(tokens[1]);
+                    searchOutWriter.println(tokens[1] + " " + foundNumber);
+                } else {
+                    // we print -1 to indicate error for automated testing
+                    searchOutWriter.println(-1);
+                    System.err.println(lineNum + ": not enough tokens.");
+                }
+
+                // remove one instance
+            } else if (s.equals("RO")) {
+                if (tokens.length == 2) {
+                    multiset.removeOne(tokens[1]);
+                } else {
+                    System.err.println(lineNum + ": not enough tokens.");
+                }
+
+                // remove all instances
+            } else if (s.equals("RA")) {
+                if (tokens.length == 2) {
+                    multiset.removeAll(tokens[1]);
+                } else {
+                    System.err.println(lineNum + ": not enough tokens.");
+                }
+
+                // print
+            } else if (s.equals("P")) {
+                multiset.print(outStream);
+
+                // quit
+            } else if (s.equals("Q")) {
+                bQuit = true;
+
+            } else {
+                System.err.println(lineNum + ": Unknown command.");
+            }
 
 			lineNum++;
 		}
@@ -133,26 +128,25 @@ public class MultisetTester
 		
 		// determine which implementation to test
 		Multiset<String> multiset = null;
-		switch(implementationType) {
-			case "linkedlist":
-				multiset = new LinkedListMultiset<String>();
-				break;
-			case "sortedlinkedlist":
-				multiset = new SortedLinkedListMultiset<String>();
-				break;
-			case "bst":
-				multiset = new BstMultiset<String>();
-				break;
-			case "hash":
-				multiset = new HashMultiset<String>();
-				break;
-			case "baltree":
-				multiset = new BalTreeMultiset<String>();
-				break;
-			default:
-				System.err.println("Unknown implmementation type.");
-				usage(progName);
-		}
+        if (implementationType.equals("linkedlist")) {
+            multiset = new LinkedListMultiset<String>();
+
+        } else if (implementationType.equals("sortedlinkedlist")) {
+            multiset = new SortedLinkedListMultiset<String>();
+
+        } else if (implementationType.equals("bst")) {
+            multiset = new BstMultiset<String>();
+
+        } else if (implementationType.equals("hash")) {
+            multiset = new HashMultiset<String>();
+
+        } else if (implementationType.equals("baltree")) {
+            multiset = new BalTreeMultiset<String>();
+
+        } else {
+            System.err.println("Unknown implmementation type.");
+            usage(progName);
+        }
 
 
 		// construct in and output streams/writers/readers, then process each operation.
