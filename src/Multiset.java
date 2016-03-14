@@ -2,7 +2,7 @@ import java.io.PrintStream;
 import java.util.*;
 
 /**
- * Abstract class for a multiset.  Your implmentation should extend this abstract class and implement all the abstract methods.
+ * Abstract class for a multiset.  Your implementation should extend this abstract class and implement all the abstract methods.
  *
  * @param T Type of elements that the multiset can hold.
  * 
