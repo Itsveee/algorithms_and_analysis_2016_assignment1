@@ -51,3 +51,6 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+#Compiled files
+*.out
