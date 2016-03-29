@@ -163,15 +163,181 @@ public class MultisetTesterWithTiming
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader("growing-50.txt"));
 			PrintWriter searchOutWriter = new PrintWriter(System.out, true);
-			
+
 			if (searchOutFilename != null) {
 				searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
 			}
-			// process the operations
-			processOperations(reader, searchOutWriter, multiset);
+            System.out.print("growing-50: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("not-growing-50.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("not-growing-50: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("shrinking-50.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("shrinking-50: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("searching-50.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("searching-50: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("growing-75.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("growing-75: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("not-growing-75.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("not-growing-75: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("shrinking-75.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("shrinking-75: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("searching-75.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("searching-75: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("growing-100.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("growing-100: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("not-growing-100.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("not-growing-100: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("shrinking-100.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("shrinking-100: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("searching-100.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("searching-100: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
 
 	} // end of main()
 

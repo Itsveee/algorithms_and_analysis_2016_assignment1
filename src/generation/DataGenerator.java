@@ -168,7 +168,7 @@ public class DataGenerator {
 
             // output samples to file
             if ((samples1 != null) && (samples2 != null)) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("growing-50.txt"), true);
+                PrintWriter printWriter = new PrintWriter(new FileWriter("growing-75.txt"), true);
                 for (int i = 0; i < samples1.length; i++) {
                     printWriter.println("A " + samples1[i]);
                 }
@@ -181,7 +181,7 @@ public class DataGenerator {
             }
 
             if ((samples1 != null) && (samples2 != null)) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("not-growing-50.txt"), true);
+                PrintWriter printWriter = new PrintWriter(new FileWriter("not-growing-75.txt"), true);
                 for (int i = 0; i < samples1.length; i++) {
                     printWriter.println("A " + samples1[i]);
                 }
@@ -203,7 +203,7 @@ public class DataGenerator {
             }
 
             if ((samples1 != null) && (samples2 != null)) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("shrinking-50.txt"), true);
+                PrintWriter printWriter = new PrintWriter(new FileWriter("shrinking-75.txt"), true);
                 currentList.addAll(Arrays.asList(samples2));
                 for (int i = 0; i < currentList.size(); i++) {
                     printWriter.println("A " + currentList.get(i));
@@ -223,7 +223,7 @@ public class DataGenerator {
             }
 
             if (samples1 != null) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("searching-50.txt"), true);
+                PrintWriter printWriter = new PrintWriter(new FileWriter("searching-75.txt"), true);
                 for (int i = 0; i < samples1.length; i++) {
                     printWriter.println("A " + samples1[i]);
                 }
