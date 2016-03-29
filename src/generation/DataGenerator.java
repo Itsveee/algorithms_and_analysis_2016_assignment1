@@ -172,6 +172,8 @@ public class DataGenerator {
                 for (int i = 0; i < samples1.length; i++) {
                     printWriter.println("A " + samples1[i]);
                 }
+                // Issue command to start the timer
+                printWriter.println("T");
                 for (int i = 0; i < samples2.length; i++) {
                     printWriter.println("A " + samples2[i]);
                 }
@@ -183,6 +185,8 @@ public class DataGenerator {
                 for (int i = 0; i < samples1.length; i++) {
                     printWriter.println("A " + samples1[i]);
                 }
+                // Issue command to start the timer
+                printWriter.println("T");
                 // Add a new word, then randomly remove a word from the updated list
                 for (int i = 0; i < samples2.length; i++) {
                     int random = mRandGen.nextInt(sampleSize);
@@ -204,6 +208,8 @@ public class DataGenerator {
                 for (int i = 0; i < currentList.size(); i++) {
                     printWriter.println("A " + currentList.get(i));
                 }
+                // Issue command to start the timer
+                printWriter.println("T");
                 for (int i = 0; i < sampleSize; i++) {
                     int random = mRandGen.nextInt(sampleSize);
                     String removedWord = currentList.get(random);
@@ -221,6 +227,8 @@ public class DataGenerator {
                 for (int i = 0; i < samples1.length; i++) {
                     printWriter.println("A " + samples1[i]);
                 }
+                // Issue command to start the timer
+                printWriter.println("T");
                 for (int i = 0; i < samples1.length; i++) {
                     int random = mRandGen.nextInt(sampleSize);
                     printWriter.println("S " + samples1[random]);
