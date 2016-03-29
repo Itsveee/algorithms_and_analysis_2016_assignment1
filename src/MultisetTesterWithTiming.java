@@ -161,13 +161,13 @@ public class MultisetTesterWithTiming
 
 		// construct in and output streams/writers/readers, then process each operation.
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader("growing-50.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("growing-5.txt"));
 			PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
 			if (searchOutFilename != null) {
 				searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
 			}
-            System.out.print("growing-50: ");
+            System.out.print("growing-5: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
 		} catch (IOException e) {
@@ -176,13 +176,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("not-growing-50.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("not-growing-5.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("not-growing-50: ");
+            System.out.print("not-growing-5: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -191,13 +191,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("shrinking-50.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("shrinking-5.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("shrinking-50: ");
+            System.out.print("shrinking-5: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -206,13 +206,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("searching-50.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("searching-5.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("searching-50: ");
+            System.out.print("searching-5: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -221,13 +221,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("growing-75.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("growing-10.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("growing-75: ");
+            System.out.print("growing-10: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -236,13 +236,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("not-growing-75.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("not-growing-10.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("not-growing-75: ");
+            System.out.print("not-growing-10: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -251,13 +251,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("shrinking-75.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("shrinking-10.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("shrinking-75: ");
+            System.out.print("shrinking-10: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -266,13 +266,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("searching-75.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("searching-10.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("searching-75: ");
+            System.out.print("searching-10: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -281,13 +281,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("growing-100.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("growing-15.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("growing-100: ");
+            System.out.print("growing-15: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -296,13 +296,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("not-growing-100.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("not-growing-15.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("not-growing-100: ");
+            System.out.print("not-growing-15: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -311,13 +311,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("shrinking-100.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("shrinking-15.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("shrinking-100: ");
+            System.out.print("shrinking-15: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -326,13 +326,13 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("searching-100.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("searching-15.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("searching-100: ");
+            System.out.print("searching-15: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -340,5 +340,4 @@ public class MultisetTesterWithTiming
         }
 
 	} // end of main()
-
 } // end of class MultisetTester
