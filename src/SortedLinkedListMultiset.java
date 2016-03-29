@@ -154,7 +154,7 @@ public class SortedLinkedListMultiset<T extends Comparable<T>> extends Multiset<
 				currNode = currNode.getNext();
 				if(currNode.getValue().compareTo(item) > 0)
 				{
-					System.out.println("This value does not exists: " + currNode.getValue().compareTo(item));
+//					System.out.println("This value does not exists: " + currNode.getValue().compareTo(item));
 					break;
 				}
 			}

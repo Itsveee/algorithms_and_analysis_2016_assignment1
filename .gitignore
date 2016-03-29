@@ -1,3 +1,11 @@
+# Data generation files
+growing*
+not-growing*
+shrinking*
+searching*
+words.txt
+
+
 .gradle
 .DS_Store
 
