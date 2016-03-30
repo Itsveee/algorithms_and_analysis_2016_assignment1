@@ -1,18 +1,29 @@
 import java.io.PrintStream;
 import java.util.*;
 
-public class SortedLinkedListMultiset<T extends Comparable<T>> extends Multiset<T>
+public class SortedLinkedListMultiset<T> extends Multiset<T>
 {
-	Node<T> mHead;
+	private Node<T> mHead;
+	private Comparator mComparator;
 	
+	// Default Constructor
 	public SortedLinkedListMultiset() 
 	{	
 		mHead = null;
-	} // end of SortedLinkedListMultiset()
+		mComparator = new CompareString();
+	}
+	
+	// Constructor to that takes comparator to allow items of other classes
+	public SortedLinkedListMultiset(Comparator comparator) 
+	{	
+		mHead = null;
+		mComparator = comparator;
+	}
 	
 	
 	public void add(T item) 
 	{
+		
 		int count = 0;
 		if(mHead == null)
 		{
@@ -20,49 +31,35 @@ public class SortedLinkedListMultiset<T extends Comparable<T>> extends Multiset<
 		}
 		else
 		{
-			count = this.search(item);
-			if(count == 0)
-			{	
-				Node<T> newNode = new Node<T>(item,1);
-				Node<T> currNode = mHead;
-				Node<T> prevNode = null;
-				while(currNode != null && currNode.getValue().compareTo(item) < 0) 	
-				{
-					prevNode = currNode;
-					currNode = currNode.getNext();
-				}
-				if(currNode == null)
-					prevNode.setNext(newNode);
-				else if(prevNode == null)
-				{
-					newNode.setNext(mHead);
-					mHead = newNode;
-				}
-				else
-				{
-					newNode.setNext(currNode);
-					prevNode.setNext(newNode);
-				}
+			Node<T> newNode = new Node<T>(item,1);
+			Node<T> currNode = mHead;
+			Node<T> prevNode = null;
+			while(currNode != null && mComparator.compare(currNode.getValue(), item) < 0) 	
+			{
+				prevNode = currNode;
+				currNode = currNode.getNext();
+			}
+			if(currNode == null)
+				// Reached end of list, add at the end
+				prevNode.setNext(newNode);
+			else if(mComparator.compare(currNode.getValue(), item) == 0)
+				// If already exists, just increment count
+				currNode.setCount(currNode.getCount() + 1);
+			else if(prevNode == null)
+			{
+				// Item goes at the beginning of the list
+				newNode.setNext(mHead);
+				mHead = newNode;
 			}
 			else
 			{
-				Node<T> currNode = mHead;
-				do
-				{
-					if(currNode.getValue().equals(item))
-					{
-						currNode.setCount(currNode.getCount()+1);
-						break;
-					}
-					currNode = currNode.getNext();
-				}
-				while(currNode != null);
+				newNode.setNext(currNode);
+				prevNode.setNext(newNode);
 			}
 		}
 	
-	} // end of add()
-	
-	
+	}
+		
 	public int search(T item) 
 	{		
 		int count = 0;		
@@ -73,60 +70,55 @@ public class SortedLinkedListMultiset<T extends Comparable<T>> extends Multiset<
 			Node<T> currNode = mHead;
 			do
 			{
-				if(currNode.getValue().equals(item))
+				if(mComparator.compare(currNode.getValue(), item) == 0)
 					return currNode.getCount();
 				currNode = currNode.getNext();
+				if(mComparator.compare(currNode.getValue(), item) > 0)
+					// The item does not exist because current item is > than item
+					break;
 			}
 			while(currNode != null);
 		}
-		// default return, please override when you implement this method
 		return 0;
-	} // end of add()
-	
+	} 	
 	
 	public void removeOne(T item) 
 	{
+		
 		if(mHead != null)
 		{
 			Node<T> currNode = mHead;
 			Node<T> prevNode = null;
 			do
 			{
-				if(currNode.getValue().equals(item))
+				if(mComparator.compare(currNode.getValue(), item) == 0)
 				{
-					if(prevNode == null)
+					if(prevNode == null) // Root node contains item
 					{
-						if(currNode.getCount() == 1)
-						{
+						if(currNode.getCount() == 1) // Last count, remove node
 							mHead = mHead.getNext();
-							break;
-						}
 						else
-						{
-							currNode.setCount(currNode.getCount()-1);
-							break;
-						}
+							currNode.setCount(currNode.getCount()-1); // Reduce count by one
+						break;
 					}
-					else
+					else 
 					{
-						if(currNode.getCount() == 1)
+						if(currNode.getCount() == 1) // Last count, remove node
 							prevNode.setNext(currNode.getNext());
 						else
-							currNode.setCount(currNode.getCount()-1);
+							currNode.setCount(currNode.getCount()-1); // Reduce count by one
 						break;
 					}
 				}
 				prevNode = currNode;
 				currNode = currNode.getNext();
-				if(currNode.getValue().compareTo(item) > 0)
-				{
-					// Quit traversing to improve efficiency
+				if(mComparator.compare(currNode.getValue(), item) > 0)
+					// The item does not exist because current item is > than item
 					break;
-				}
 			}
 			while(currNode != null);
 		}
-	} // end of removeOne()
+	} 
 	
 	
 	public void removeAll(T item)
@@ -137,31 +129,23 @@ public class SortedLinkedListMultiset<T extends Comparable<T>> extends Multiset<
 			Node<T> prevNode = null;
 			do
 			{
-				if(currNode.getValue().equals(item))
+				if(mComparator.compare(currNode.getValue(), item) == 0)
 				{
-					if(prevNode == null)
-					{
+					if(prevNode == null) // Root node has item
 						mHead = mHead.getNext();
-						break;
-					}
 					else
-					{
 						prevNode.setNext(currNode.getNext());
-						break;
-					}
+					break;
 				}
 				prevNode = currNode;
 				currNode = currNode.getNext();
-				if(currNode.getValue().compareTo(item) > 0)
-				{
-//					System.out.println("This value does not exists: " + currNode.getValue().compareTo(item));
+				if(mComparator.compare(currNode.getValue(), item) > 0)
+					// The item does not exist because current item is > than item
 					break;
-				}
 			}
 			while(currNode != null);
 		}
-	} // end of removeAll()
-	
+	}
 	
 	public void print(PrintStream out) 
 	{
@@ -175,15 +159,13 @@ public class SortedLinkedListMultiset<T extends Comparable<T>> extends Multiset<
 			}
 			while(currNode != null);
 		}
-	} // end of print()
+	} 
 	
-	public class Node<T extends Comparable<T>>
+	public class Node<T>
 	{
-		 /** Stored value of node. */
-		private T mValue;
-		private int mCount;
-		/** Reference to next node. */
-	    private Node<T> mNext;
+		private T mValue; // Stored value of Node
+		private int mCount; // Count of value
+	    private Node<T> mNext; // Reference to next Node
 
 	    public Node(T value, int count) 
 	    {
@@ -224,5 +206,17 @@ public class SortedLinkedListMultiset<T extends Comparable<T>> extends Multiset<
 		
 	}
 
+	public class CompareString implements Comparator<String> {
+        @Override
+        public int compare(String o1, String o2) {
+            if (o1.compareTo(o2) < 0) {
+                return -1;
+            } else if (o1.compareTo(o2) == 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+    }
 } // end of class SortedLinkedListMultiset
 
