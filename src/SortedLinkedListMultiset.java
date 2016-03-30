@@ -70,9 +70,9 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
 			Node<T> currNode = mHead;
 			do
 			{
-				if(mComparator.compare(currNode.getValue(), item) > 0)
-					// The item does not exist because current item is > than item
-					break;
+//				if(mComparator.compare(currNode.getValue(), item) > 0)
+//					// The item does not exist because current item is > than item
+//					break;
 				if(mComparator.compare(currNode.getValue(), item) == 0)
 					return currNode.getCount();
 				currNode = currNode.getNext();
@@ -111,9 +111,9 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
 						break;
 					}
 				}
-				if(mComparator.compare(currNode.getValue(), item) > 0)
-					// The item does not exist because current item is > than item
-					break;
+//				if(mComparator.compare(currNode.getValue(), item) > 0)
+//					// The item does not exist because current item is > than item
+//					break;
 				prevNode = currNode;
 				currNode = currNode.getNext();
 			}
@@ -138,9 +138,9 @@ public class SortedLinkedListMultiset<T> extends Multiset<T>
 						prevNode.setNext(currNode.getNext());
 					break;
 				}
-				if(mComparator.compare(currNode.getValue(), item) > 0)
-					// The item does not exist because current item is > than item
-					break;
+//				if(mComparator.compare(currNode.getValue(), item) > 0)
+//					// The item does not exist because current item is > than item
+//					break;
 				prevNode = currNode;
 				currNode = currNode.getNext();
 			}
