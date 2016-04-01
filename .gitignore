@@ -4,6 +4,7 @@ not-growing*
 shrinking*
 searching*
 words.txt
+*.project
 
 
 .gradle
