@@ -191,20 +191,17 @@ public class DataGenerator {
                 currentMultiset.clear();
             }
 
-            if ((samples1 != null) && (samples2 != null)) {
+            if (samples1 != null) {
                 PrintWriter printWriter = new PrintWriter(new FileWriter("shrinking-50.txt"), true);
                 currentMultiset.addAll(Arrays.asList(samples1));
-                currentMultiset.addAll(Arrays.asList(samples2));
                 for (int i = 0; i < currentMultiset.size(); i++) {
                     printWriter.println("A " + currentMultiset.get(i));
                 }
                 // Issue command to start the timer
                 printWriter.println("T");
-                for (int i = 0; i < sampleSize; i++) {
-                    int random = mRandGen.nextInt(sampleSize);
-                    String removedWord = currentMultiset.get(random);
-                    printWriter.println("RO " + removedWord);
-                    currentMultiset.remove(removedWord);
+                Collections.shuffle(currentMultiset);
+                for (int i = 0; i < currentMultiset.size(); i++) {
+                    printWriter.println("RO " + currentMultiset.get(i));
                 }
                 printWriter.println("Q");
                 // Reset the current multiset
