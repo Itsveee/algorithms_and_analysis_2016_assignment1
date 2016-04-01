@@ -3,6 +3,7 @@ package generation;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Random;
  *
  * @author jkcchan
  *
- * Modified by Michael Vescovo
+ * Modified by Loy Rao and Michael Vescovo
  */
 public class DataGenerator {
 
@@ -73,7 +74,6 @@ public class DataGenerator {
         for (int i = 0; i < sampleSize; i++) {
             samples[i] = sampleWithReplacement();
         }
-
         return samples;
     } // end of sampleWithReplacement()
 
@@ -135,30 +135,22 @@ public class DataGenerator {
             // integer range
             int startOfRange = Integer.parseInt(args[0]);
             int endOfRange = Integer.parseInt(args[1]);
-
             // number of values to sample
             int sampleSize = Integer.parseInt(args[2]);
-
             // type of sampling
             String samplingType = args[3];
-
             DataGenerator gen = new DataGenerator(startOfRange, endOfRange);
-
             String[] samples1 = null;
             String[] samples2 = null;
-            ArrayList<String> currentList = new ArrayList<String>();
+            ArrayList<String> currentMultiset = new ArrayList<String>();
 
             if (samplingType.equals("with")) {
                 samples1 = gen.sampleWithReplacement(sampleSize);
                 samples2 = gen.sampleWithReplacement(sampleSize);
-                currentList.addAll(Arrays.asList(samples1));
-
                 // sampling without replacement
             } else if (samplingType.equals("without")) {
                 samples1 = gen.sampleWithOutReplacement(sampleSize);
                 samples2 = gen.sampleWithOutReplacement(sampleSize);
-                currentList.addAll(Arrays.asList(samples1));
-
             } else {
                 System.err.println(samplingType + " is an unknown sampling type.");
                 usage();
@@ -167,69 +159,66 @@ public class DataGenerator {
             Random mRandGen = new Random(System.currentTimeMillis());
 
             // output samples to file
-            if ((samples1 != null) && (samples2 != null)) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("growing-15.txt"), true);
-                for (int i = 0; i < samples1.length; i++) {
-                    printWriter.println("A " + samples1[i]);
-                }
+            if (samples1 != null) {
+                PrintWriter printWriter = new PrintWriter(new FileWriter("growing-50.txt"), true);
                 // Issue command to start the timer
                 printWriter.println("T");
-                for (int i = 0; i < samples2.length; i++) {
-                    printWriter.println("A " + samples2[i]);
+                for (int i = 0; i < samples1.length; i++) {
+                    printWriter.println("A " + samples1[i]);
                 }
                 printWriter.println("Q");
             }
 
             if ((samples1 != null) && (samples2 != null)) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("not-growing-15.txt"), true);
-                for (int i = 0; i < samples1.length; i++) {
+                PrintWriter printWriter = new PrintWriter(new FileWriter("not-growing-50.txt"), true);
+                currentMultiset.addAll(Arrays.asList(samples1));
+                for (int i = 0; i < sampleSize; i++) {
                     printWriter.println("A " + samples1[i]);
                 }
                 // Issue command to start the timer
                 printWriter.println("T");
-                // Add a new word, then randomly remove a word from the updated list
-                for (int i = 0; i < samples2.length; i++) {
+                // Add a new word, then randomly remove a word from the updated multiset
+                for (int i = 0; i < sampleSize; i++) {
                     int random = mRandGen.nextInt(sampleSize);
                     printWriter.println("A " + samples2[i]);
-                    currentList.add(samples2[i]);
-                    String removedWord = currentList.get(random);
+                    currentMultiset.add(samples2[i]);
+                    String removedWord = currentMultiset.get(random);
                     printWriter.println("RO " + removedWord);
-                    currentList.remove(removedWord);
+                    currentMultiset.remove(removedWord);
                 }
                 printWriter.println("Q");
-                // Reset the current list back to samples1 so the next data file can use it
-                currentList.clear();
-                currentList.addAll(Arrays.asList(samples1));
+                // Reset the current multiset
+                currentMultiset.clear();
             }
 
             if ((samples1 != null) && (samples2 != null)) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("shrinking-15.txt"), true);
-                currentList.addAll(Arrays.asList(samples2));
-                for (int i = 0; i < currentList.size(); i++) {
-                    printWriter.println("A " + currentList.get(i));
+                PrintWriter printWriter = new PrintWriter(new FileWriter("shrinking-50.txt"), true);
+                currentMultiset.addAll(Arrays.asList(samples1));
+                currentMultiset.addAll(Arrays.asList(samples2));
+                for (int i = 0; i < currentMultiset.size(); i++) {
+                    printWriter.println("A " + currentMultiset.get(i));
                 }
                 // Issue command to start the timer
                 printWriter.println("T");
                 for (int i = 0; i < sampleSize; i++) {
                     int random = mRandGen.nextInt(sampleSize);
-                    String removedWord = currentList.get(random);
+                    String removedWord = currentMultiset.get(random);
                     printWriter.println("RO " + removedWord);
-                    currentList.remove(removedWord);
+                    currentMultiset.remove(removedWord);
                 }
                 printWriter.println("Q");
-                // Reset the current list back to samples1 so the next data file can use it
-                currentList.clear();
-                currentList.addAll(Arrays.asList(samples1));
+                // Reset the current multiset
+                currentMultiset.clear();
             }
 
             if (samples1 != null) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("searching-15.txt"), true);
-                for (int i = 0; i < samples1.length; i++) {
+                PrintWriter printWriter = new PrintWriter(new FileWriter("searching-50.txt"), true);
+                for (int i = 0; i < sampleSize; i++) {
                     printWriter.println("A " + samples1[i]);
                 }
                 // Issue command to start the timer
                 printWriter.println("T");
-                for (int i = 0; i < samples1.length; i++) {
+                for (int i = 0; i < sampleSize; i++) {
                     int random = mRandGen.nextInt(sampleSize);
                     printWriter.println("S " + samples1[random]);
                 }

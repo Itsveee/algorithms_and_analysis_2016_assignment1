@@ -6,7 +6,7 @@ import java.io.*;
  * 
  * @author jkcchan'
  *
- * Modified by Michael Vescovo
+ * Modified by Michael Vescovo and Loy Rao
  */
 public class MultisetTesterWithTimingFixed
 {

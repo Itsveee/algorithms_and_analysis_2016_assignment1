@@ -1,63 +1,62 @@
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-
 import java.io.*;
 
 
 /**
  * Framework to test the multiset implementations.
- * 
+ *
  * @author jkcchan'
  *
- * Modified by Michael Vescovo
+ * Modified by Loy Rao and Michael Vescovo
  */
 public class MultisetTesterWithTiming
 {
-	/** Name of class, used in error messages. */
-	protected static final String progName = "MultisetTester";
-	
-	/** Standard outstream. */
-	protected static final PrintStream outStream = System.out;
+    /** Name of class, used in error messages. */
+    protected static final String progName = "MultisetTester";
 
-	/**
-	 * Print help/usage message.
-	 */
-	public static void usage(String progName) {
-		System.err.println(progName + ": <implementation> [fileName to output search results to]");
-		System.err.println("<implementation> = <linkedlist | sortedlinkedlist | bst| hash | baltree>");
-		System.exit(1);
-	} // end of usage
+    /** Standard outstream. */
+    protected static final PrintStream outStream = System.out;
+
+    protected static Multiset<String> multiset = null;
+    /**
+     * Print help/usage message.
+     */
+    public static void usage(String progName) {
+        System.err.println(progName + ": <implementation> [fileName to output search results to]");
+        System.err.println("<implementation> = <linkedlist | sortedlinkedlist | bst| hash | baltree>");
+        System.exit(1);
+    } // end of usage
 
 
-	/**
-	 * Process the operation commands coming from inReader, and updates the multiset according to the operations.
-	 * 
-	 * @param inReader Input reader where the operation commands are coming from.
-	 * @param searchOutWriter Where to output the results of search.
-	 * @param multiset The multiset which the operations are executed on.
-	 * 
-	 * @throws IOException If there is an exception to do with I/O.
-	 */
-	private static void processOperations(BufferedReader inReader, PrintWriter searchOutWriter, Multiset<String> multiset) throws IOException {
-		String line;
-		int lineNum = 1;
-		boolean bQuit = false;
+    /**
+     * Process the operation commands coming from inReader, and updates the multiset according to the operations.
+     *
+     * @param inReader Input reader where the operation commands are coming from.
+     * @param searchOutWriter Where to output the results of search.
+     * @param multiset The multiset which the operations are executed on.
+     *
+     * @throws IOException If there is an exception to do with I/O.
+     */
+    private static void processOperations(BufferedReader inReader, PrintWriter searchOutWriter, Multiset<String> multiset) throws IOException {
+        String line;
+        int lineNum = 1;
+        boolean bQuit = false;
 
         long startTime = 0;
 
         // continue reading in commands until we either receive the quit signal or there are no more input commands
-		while (!bQuit && (line = inReader.readLine()) != null) {
+        while (!bQuit && (line = inReader.readLine()) != null) {
             String[] tokens = line.split(" ");
 
-			// check if there is at least an operation command
-			if (tokens.length < 1) {
+            // check if there is at least an operation command
+            if (tokens.length < 1) {
                 System.out.println("Tokens.length < 1");
                 System.err.println(lineNum + ": not enough tokens.");
-				lineNum++;
-				continue;
-			}
+                lineNum++;
+                continue;
+            }
 
-			String command = tokens[0];
-			// determine which operation to execute
+            String command = tokens[0];
+            // determine which operation to execute
             String s = command.toUpperCase();
 
 
@@ -109,35 +108,15 @@ public class MultisetTesterWithTiming
                 System.err.println(lineNum + ": Unknown command.");
             }
 
-			lineNum++;
-		}
+            lineNum++;
+        }
 
         long endTime = System.nanoTime();
         System.out.println("time taken = " + ((double)(endTime - startTime)) / Math.pow(10, 9) + " sec");
     } // end of processOperations()
 
-
-	/**
-	 * Main method.  Determines which implementation to test.
-	 */
-	public static void main(String[] args) {
-
-		// check number of command line arguments
-		if (args.length > 2 || args.length < 1) {
-			System.err.println("Incorrect number of arguments.");
-			usage(progName);
-		}
-
-		String implementationType = args[0];
-		
-		String searchOutFilename = null;
-		if (args.length == 2) {
-			searchOutFilename = args[1];
-		}
-		
-		
-		// determine which implementation to test
-		Multiset<String> multiset = null;
+    public static void createMultiset(String implementationType)
+    {
         if (implementationType.equals("linkedlist")) {
             multiset = new LinkedListMultiset<String>();
 
@@ -157,32 +136,36 @@ public class MultisetTesterWithTiming
             System.err.println("Unknown implmementation type.");
             usage(progName);
         }
+    }
 
+    /**
+     * Main method.  Determines which implementation to test.
+     */
+    public static void main(String[] args) {
 
-		// construct in and output streams/writers/readers, then process each operation.
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader("growing-5.txt"));
-			PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+        // check number of command line arguments
+        if (args.length > 2 || args.length < 1) {
+            System.err.println("Incorrect number of arguments.");
+            usage(progName);
+        }
 
-			if (searchOutFilename != null) {
-				searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
-			}
-            System.out.print("growing-5: ");
-            // process the operations
-            processOperations(reader, searchOutWriter, multiset);
-		} catch (IOException e) {
-			System.err.println(e.getMessage());
-		}
+        String implementationType = args[0];
+
+        String searchOutFilename = null;
+        if (args.length == 2) {
+            searchOutFilename = args[1];
+        }
+
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("not-growing-5.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("growing-25.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
-
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("not-growing-5: ");
+            System.out.print("growing-25: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -191,13 +174,14 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("shrinking-5.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("not-growing-25.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("shrinking-5: ");
+            System.out.print("not-growing-25: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -206,13 +190,14 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("searching-5.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("shrinking-25.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("searching-5: ");
+            System.out.print("shrinking-25: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -221,13 +206,14 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("growing-10.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("searching-25.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("growing-10: ");
+            System.out.print("searching-25: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -236,13 +222,14 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("not-growing-10.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("growing-50.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("not-growing-10: ");
+            System.out.print("growing-50: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -251,13 +238,14 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("shrinking-10.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("not-growing-50.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("shrinking-10: ");
+            System.out.print("not-growing-50: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -266,13 +254,14 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("searching-10.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("shrinking-50.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("searching-10: ");
+            System.out.print("shrinking-50: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -281,13 +270,14 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("growing-15.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("searching-50.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("growing-15: ");
+            System.out.print("searching-50: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -296,13 +286,14 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("not-growing-15.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("growing-100.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("not-growing-15: ");
+            System.out.print("growing-100: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -311,13 +302,14 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("shrinking-15.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("not-growing-100.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("shrinking-15: ");
+            System.out.print("not-growing-100: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
@@ -326,18 +318,35 @@ public class MultisetTesterWithTiming
 
         // construct in and output streams/writers/readers, then process each operation.
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("searching-15.txt"));
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("shrinking-100.txt"));
             PrintWriter searchOutWriter = new PrintWriter(System.out, true);
 
             if (searchOutFilename != null) {
                 searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
             }
-            System.out.print("searching-15: ");
+            System.out.print("shrinking-100: ");
             // process the operations
             processOperations(reader, searchOutWriter, multiset);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
 
-	} // end of main()
+        // construct in and output streams/writers/readers, then process each operation.
+        try {
+            createMultiset(implementationType);
+            BufferedReader reader = new BufferedReader(new FileReader("searching-100.txt"));
+            PrintWriter searchOutWriter = new PrintWriter(System.out, true);
+
+            if (searchOutFilename != null) {
+                searchOutWriter = new PrintWriter(new FileWriter(searchOutFilename), true);
+            }
+            System.out.print("searching-100: ");
+            // process the operations
+            processOperations(reader, searchOutWriter, multiset);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+    } // end of main()
 } // end of class MultisetTester

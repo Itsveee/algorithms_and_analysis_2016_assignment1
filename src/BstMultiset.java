@@ -1,6 +1,13 @@
 import java.io.PrintStream;
 import java.util.Comparator;
 
+/**
+ * Generates collection of integers from sampling a uniform distribution.
+ *
+ * @author jkcchan
+ *
+ * Modified by Michael Vescovo
+ */
 public class BstMultiset<T> extends Multiset<T> {
 
     private Node mRoot;

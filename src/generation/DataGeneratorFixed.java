@@ -1,4 +1,4 @@
-
+package generation;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author jkcchan
  *
- * Modified by Michael Vescovo
+ * Modified by Michael Vescovo and Loy Rao
  */
 public class DataGeneratorFixed {
 

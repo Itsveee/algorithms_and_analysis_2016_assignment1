@@ -1,6 +1,13 @@
 import java.io.PrintStream;
 import java.util.*;
 
+/**
+ * Framework to test the multiset implementations.
+ *
+ * @author jkcchan'
+ *
+ * Modified by Loy Rao
+ */
 public class LinkedListMultiset<T> extends Multiset<T>
 {
 	private Node<T> mHead;
