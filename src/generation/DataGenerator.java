@@ -48,6 +48,7 @@ public class DataGenerator {
             while ((word = dictFile.readLine()) != null) {
                 dictList.add(word);
             }
+            System.out.println("dictlist size: " + dictList.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,7 +59,7 @@ public class DataGenerator {
      * Generate one sample, using sampling with replacement.
      */
     public String sampleWithReplacement() {
-        int random = mRandGen.nextInt(mEndOfRange - mStartOfRange + 1) + mStartOfRange;
+        int random = mRandGen.nextInt(mEndOfRange - mStartOfRange + 1);
         return dictList.get(random);
     } // end of sampleWithReplacement()
 
@@ -74,6 +75,7 @@ public class DataGenerator {
         for (int i = 0; i < sampleSize; i++) {
             samples[i] = sampleWithReplacement();
         }
+        System.out.println("sample with replacement size: " + samples.length);
         return samples;
     } // end of sampleWithReplacement()
 
@@ -125,11 +127,12 @@ public class DataGenerator {
      * Main method.
      */
     public static void main(String[] args) {
-
+        int mBlankLineCount = 0;
         // check correct number of command line arguments
         if (args.length != 4) {
             usage();
         }
+
 
         try {
             // integer range
@@ -145,7 +148,9 @@ public class DataGenerator {
             ArrayList<String> currentMultiset = new ArrayList<String>();
 
             if (samplingType.equals("with")) {
+                System.out.println("getting samples1");
                 samples1 = gen.sampleWithReplacement(sampleSize);
+                System.out.println("getting samples2");
                 samples2 = gen.sampleWithReplacement(sampleSize);
                 // sampling without replacement
             } else if (samplingType.equals("without")) {
@@ -159,68 +164,160 @@ public class DataGenerator {
             Random mRandGen = new Random(System.currentTimeMillis());
 
             // output samples to file
-            if (samples1 != null) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("growing-50.txt"), true);
-                // Issue command to start the timer
-                printWriter.println("T");
-                for (int i = 0; i < samples1.length; i++) {
-                    printWriter.println("A " + samples1[i]);
-                }
-                printWriter.println("Q");
-            }
+//            if (samples1 != null) {
+//                PrintWriter printWriter = new PrintWriter(new FileWriter("growing-300.txt"), true);
+//                // Issue command to start the timer
+//                printWriter.println("T");
+//                System.out.println("writing commands to file");
+//                for (int i = 0; i < samples1.length; i++) {
+//                    if (samples1[i].equals("")) {
+//                        mBlankLineCount++;
+//                    } else {
+//                        printWriter.println("A " + samples1[i]);
+//                    }
+//                }
+//                System.out.println("blank lines: " + mBlankLineCount);
+//                printWriter.println("Q");
+//            }
 
-            if ((samples1 != null) && (samples2 != null)) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("not-growing-50.txt"), true);
-                currentMultiset.addAll(Arrays.asList(samples1));
-                for (int i = 0; i < sampleSize; i++) {
-                    printWriter.println("A " + samples1[i]);
-                }
-                // Issue command to start the timer
-                printWriter.println("T");
-                // Add a new word, then randomly remove a word from the updated multiset
-                for (int i = 0; i < sampleSize; i++) {
-                    int random = mRandGen.nextInt(sampleSize);
-                    printWriter.println("A " + samples2[i]);
-                    currentMultiset.add(samples2[i]);
-                    String removedWord = currentMultiset.get(random);
-                    printWriter.println("RO " + removedWord);
-                    currentMultiset.remove(removedWord);
-                }
-                printWriter.println("Q");
-                // Reset the current multiset
-                currentMultiset.clear();
-            }
+//            if ((samples1 != null) && (samples2 != null)) {
+//                PrintWriter printWriter = new PrintWriter(new FileWriter("not-growing-300.txt"), true);
+//                currentMultiset.addAll(Arrays.asList(samples1));
+//                for (int i = 0; i < sampleSize; i++) {
+//                    printWriter.println("A " + samples1[i]);
+//                }
+//                // Issue command to start the timer
+//                printWriter.println("T");
+//                // Add a new word, then randomly remove a word from the updated multiset
+//                for (int i = 0; i < sampleSize; i++) {
+//                    int random = mRandGen.nextInt(sampleSize);
+//                    printWriter.println("A " + samples2[i]);
+//                    currentMultiset.add(samples2[i]);
+//                    String removedWord = currentMultiset.get(random);
+//                    printWriter.println("RO " + removedWord);
+//                    currentMultiset.remove(removedWord);
+//                }
+//                printWriter.println("Q");
+//                // Reset the current multiset
+//                currentMultiset.clear();
+//            }
+//
+//            if (samples1 != null) {
+//                PrintWriter printWriter = new PrintWriter(new FileWriter("shrinking-300.txt"), true);
+//                currentMultiset.addAll(Arrays.asList(samples1));
+//                for (int i = 0; i < currentMultiset.size(); i++) {
+//                    if (samples1[i].equals("")) {
+//                        mBlankLineCount++;
+//                    } else {
+//                        printWriter.println("A " + currentMultiset.get(i));
+//                    }
+//                }
+//                // Issue command to start the timer
+//                printWriter.println("T");
+//                Collections.shuffle(currentMultiset);
+//                for (int i = 0; i < currentMultiset.size(); i++) {
+//                    if (samples1[i].equals("")) {
+//                        mBlankLineCount++;
+//                    } else {
+//                        printWriter.println("RO " + currentMultiset.get(i));
+//                    }
+//                }
+//                System.out.println("blank lines: " + mBlankLineCount);
+//                printWriter.println("Q");
+//                // Reset the current multiset
+//                currentMultiset.clear();
+//            }
 
             if (samples1 != null) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("shrinking-50.txt"), true);
+                PrintWriter printWriter = new PrintWriter(new FileWriter("shrinking-with-failures-100.txt"), true);
                 currentMultiset.addAll(Arrays.asList(samples1));
                 for (int i = 0; i < currentMultiset.size(); i++) {
-                    printWriter.println("A " + currentMultiset.get(i));
+                    if (samples1[i].equals("")) {
+                        mBlankLineCount++;
+                    } else {
+                        printWriter.println("A " + currentMultiset.get(i));
+                    }
                 }
                 // Issue command to start the timer
                 printWriter.println("T");
                 Collections.shuffle(currentMultiset);
                 for (int i = 0; i < currentMultiset.size(); i++) {
-                    printWriter.println("RO " + currentMultiset.get(i));
+                    if (samples1[i].equals("")) {
+                        mBlankLineCount++;
+                    } else {
+                        if (i % 2 == 0) {
+                            printWriter.println("RO " + currentMultiset.get(i));
+                        } else {
+                            printWriter.println("RO " + "-1");
+                        }
+                    }
                 }
+                for (int i = 0; i < currentMultiset.size(); i++) {
+                    if (samples1[i].equals("")) {
+                        mBlankLineCount++;
+                    } else {
+                        if (i % 2 == 0) {
+                            printWriter.println("RO " + "-1");
+                        } else {
+                            printWriter.println("RO " + currentMultiset.get(i));
+                        }
+                    }
+                }
+                System.out.println("blank lines: " + mBlankLineCount);
                 printWriter.println("Q");
                 // Reset the current multiset
                 currentMultiset.clear();
             }
+//
+//            if (samples1 != null) {
+//                PrintWriter printWriter = new PrintWriter(new FileWriter("searching-300.txt"), true);
+//                for (int i = 0; i < sampleSize; i++) {
+//                    if (samples1[i].equals("")) {
+//                        mBlankLineCount++;
+//                    } else {
+//                        printWriter.println("A " + samples1[i]);
+//                    }
+//                }
+//                // Issue command to start the timer
+//                printWriter.println("T");
+//                for (int i = 0; i < sampleSize; i++) {
+//                    int random = mRandGen.nextInt(sampleSize);
+//                    if (samples1[random].equals("")) {
+//                        mBlankLineCount++;
+//                    } else {
+//                        printWriter.println("S " + samples1[random]);
+//                    }
+//                }
+//                System.out.println("blank lines: " + mBlankLineCount);
+//                printWriter.println("Q");
+//            }
 
-            if (samples1 != null) {
-                PrintWriter printWriter = new PrintWriter(new FileWriter("searching-50.txt"), true);
-                for (int i = 0; i < sampleSize; i++) {
-                    printWriter.println("A " + samples1[i]);
-                }
-                // Issue command to start the timer
-                printWriter.println("T");
-                for (int i = 0; i < sampleSize; i++) {
-                    int random = mRandGen.nextInt(sampleSize);
-                    printWriter.println("S " + samples1[random]);
-                }
-                printWriter.println("Q");
-            }
+//            if (samples1 != null) {
+//                PrintWriter printWriter = new PrintWriter(new FileWriter("searching-with-failures-100.txt"), true);
+//                for (int i = 0; i < sampleSize; i++) {
+//                    if (samples1[i].equals("")) {
+//                        mBlankLineCount++;
+//                    } else {
+//                        printWriter.println("A " + samples1[i]);
+//                    }
+//                }
+//                // Issue command to start the timer
+//                printWriter.println("T");
+//                for (int i = 0; i < sampleSize; i++) {
+//                    int random = mRandGen.nextInt(sampleSize);
+//                    if (samples1[random].equals("")) {
+//                        mBlankLineCount++;
+//                    } else {
+//                        if (i % 2 == 0) {
+//                            printWriter.println("S " + samples1[random]);
+//                        } else {
+//                            printWriter.println("S " + "-1");
+//                        }
+//                    }
+//                }
+//                System.out.println("blank lines: " + mBlankLineCount);
+//                printWriter.println("Q");
+//            }
         }
         catch (Exception e) {
             System.err.println(e.getMessage());
